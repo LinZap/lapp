@@ -19,8 +19,8 @@ EXPOSE 5432
 
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN echo "<?php phpinfo(); ?>" >> /var/www/html/phpinfo.php
 
 COPY pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
-COPY phpinfo.php /var/www/html/
 
 CMD /etc/init.d/postgresql start && /usr/sbin/apache2 -D FOREGROUND
