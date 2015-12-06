@@ -12,15 +12,15 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 ENV APACHE_RUN_DIR /var/run/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 
-VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql","/var/www/html"]
+RUN mkdir /share
+VOLUME ["/share"]
+# VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql","/var/www/html"]
 
 EXPOSE 80
 EXPOSE 5432
 
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-RUN touch /var/www/html/phpinfo.php
-RUN echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
 
 COPY pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
 
